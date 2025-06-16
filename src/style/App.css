@@ -1,0 +1,15 @@
+.container {
+  height: 100vh;
+  padding: 1rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 10% 90%;
+}
+
+.container > div {
+  border: 1px solid black;
+}
+
+.container > .navigation {
+  grid-column: 1 / 4;
+}
