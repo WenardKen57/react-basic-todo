@@ -1,0 +1,9 @@
+.navigation {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.navigation a {
+  text-decoration: none;
+}
