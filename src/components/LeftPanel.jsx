@@ -16,7 +16,7 @@ function LeftPanel() {
 
   function handleSubmitInputValue() {
     setList((prevList) => {
-      return [...prevList, itemInputValue];
+      return [...prevList, { id: crypto.randomUUID(), value: itemInputValue }];
     });
   }
 
@@ -27,7 +27,7 @@ function LeftPanel() {
       <h1>List of not to do:</h1>
       <List>
         {list.map((item) => {
-          return <Item>{item}</Item>;
+          return <Item key={item.id}>{item.value}</Item>;
         })}
       </List>
     </div>
