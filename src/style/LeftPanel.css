@@ -1,0 +1,9 @@
+.leftPanel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.leftPanel > ul {
+  list-style-type: none;
+}
