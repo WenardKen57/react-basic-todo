@@ -3,20 +3,29 @@ import Item from "./Item";
 import ItemInput from "./ItemInput";
 
 import "./../style/LeftPanel.css";
-import { useState } from "react";
 
-function LeftPanel() {
-  const [list, setList] = useState([]);
-  const [itemInputValue, setItemInputValue] = useState("");
-
+function LeftPanel({
+  children,
+  setList,
+  itemInputValue,
+  setItemInputValue,
+  handleCurrentItemFocus,
+  handleItemSelect,
+}) {
   function handleInputValue(event) {
     const target = event.target;
     setItemInputValue(() => target.value);
   }
 
   function handleSubmitInputValue() {
+    const generatedID = crypto.randomUUID();
+    handleCurrentItemFocus(generatedID);
     setList((prevList) => {
-      return [...prevList, itemInputValue];
+      if (itemInputValue === "") {
+        return [...prevList];
+      } else {
+        return [...prevList, { id: generatedID, itemTitle: itemInputValue }];
+      }
     });
   }
 
@@ -26,8 +35,16 @@ function LeftPanel() {
       <button onClick={handleSubmitInputValue}>Add item</button>
       <h1>List of not to do:</h1>
       <List>
-        {list.map((item) => {
-          return <Item>{item}</Item>;
+        {children.map((item) => {
+          return (
+            <Item
+              key={item.id}
+              id={item.id}
+              handleItemSelect={handleItemSelect}
+            >
+              {item.itemTitle}
+            </Item>
+          );
         })}
       </List>
     </div>
