@@ -25,21 +25,19 @@ function App() {
     <div className="container">
       <Navigation></Navigation>
       <LeftPanel
+        list={list}
         setList={setList}
         itemInputValue={itemInputValue}
         setItemInputValue={setItemInputValue}
         handleCurrentItemFocus={handleCurrentItemFocus}
         handleItemSelect={handleItemSelect}
-      >
-        {list}
-      </LeftPanel>
+      ></LeftPanel>
       <RightPanel
         isEditingItemDetails={isEditingItemDetails}
         setList={setList}
         list={list}
-      >
-        {currentItemID}
-      </RightPanel>
+        itemID={currentItemID}
+      ></RightPanel>
     </div>
   );
 }
