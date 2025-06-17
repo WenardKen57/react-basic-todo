@@ -10,6 +10,7 @@ function LeftPanel({
   itemInputValue,
   setItemInputValue,
   handleCurrentItemFocus,
+  handleItemSelect,
 }) {
   function handleInputValue(event) {
     const target = event.target;
@@ -31,7 +32,15 @@ function LeftPanel({
       <h1>List of not to do:</h1>
       <List>
         {children.map((item) => {
-          return <Item key={item.id}>{item.itemTitle}</Item>;
+          return (
+            <Item
+              key={item.id}
+              id={item.id}
+              handleItemSelect={handleItemSelect}
+            >
+              {item.itemTitle}
+            </Item>
+          );
         })}
       </List>
     </div>

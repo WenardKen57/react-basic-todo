@@ -11,7 +11,6 @@ function RightPanel({ isEditingItemDetails, list, setList, children }) {
           <ItemEditDetails list={list} setList={setList}>
             {children}
           </ItemEditDetails>
-          ;
         </div>
       );
     }

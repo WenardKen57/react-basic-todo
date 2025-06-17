@@ -1,5 +1,3 @@
-import { useEffect, useState } from "react";
-
 function ItemEditDetails({ list, setList, children }) {
   function handleItemTitle(event) {
     const updatedList = list.map((item) =>

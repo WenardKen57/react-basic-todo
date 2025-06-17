@@ -12,8 +12,13 @@ function App() {
   const [isEditingItemDetails, setIsEditingItemDetails] = useState(true);
   const [currentItemID, setCurrentItemID] = useState("");
 
-  function handleCurrentItemFocus(generatedID) {
-    setCurrentItemID(() => generatedID);
+  function handleCurrentItemFocus(itemID) {
+    setCurrentItemID(() => itemID);
+  }
+
+  function handleItemSelect(event) {
+    const target = event.target;
+    handleCurrentItemFocus(target.parentNode.id);
   }
 
   return (
@@ -24,6 +29,7 @@ function App() {
         itemInputValue={itemInputValue}
         setItemInputValue={setItemInputValue}
         handleCurrentItemFocus={handleCurrentItemFocus}
+        handleItemSelect={handleItemSelect}
       >
         {list}
       </LeftPanel>
