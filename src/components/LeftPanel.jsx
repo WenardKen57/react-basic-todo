@@ -21,7 +21,11 @@ function LeftPanel({
     const generatedID = crypto.randomUUID();
     handleCurrentItemFocus(generatedID);
     setList((prevList) => {
-      return [...prevList, { id: generatedID, itemTitle: itemInputValue }];
+      if (itemInputValue === "") {
+        return [...prevList];
+      } else {
+        return [...prevList, { id: generatedID, itemTitle: itemInputValue }];
+      }
     });
   }
 
