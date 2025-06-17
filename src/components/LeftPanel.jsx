@@ -5,7 +5,7 @@ import ItemInput from "./ItemInput";
 import "./../style/LeftPanel.css";
 
 function LeftPanel({
-  children,
+  list,
   setList,
   itemInputValue,
   setItemInputValue,
@@ -29,23 +29,36 @@ function LeftPanel({
     });
   }
 
+  function removeItemFromList(itemID) {
+    setList(list.filter((item) => item.id != itemID));
+  }
+
+  function handleItemRemove(event) {
+    removeItemFromList(event.target.parentNode.id);
+  }
+
   return (
     <div className="leftPanel">
       <ItemInput onChange={handleInputValue}></ItemInput>
       <button onClick={handleSubmitInputValue}>Add item</button>
       <h1>List of not to do:</h1>
       <List>
-        {children.map((item) => {
-          return (
-            <Item
-              key={item.id}
-              id={item.id}
-              handleItemSelect={handleItemSelect}
-            >
-              {item.itemTitle}
-            </Item>
-          );
-        })}
+        {list.length <= 0 ? (
+          <h3>No items</h3>
+        ) : (
+          list.map((item) => {
+            return (
+              <Item
+                key={item.id}
+                id={item.id}
+                handleItemSelect={handleItemSelect}
+                handleItemRemove={handleItemRemove}
+              >
+                {item.itemTitle}
+              </Item>
+            );
+          })
+        )}
       </List>
     </div>
   );

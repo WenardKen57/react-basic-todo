@@ -1,45 +1,15 @@
-function ItemEditDetails({ list, setList, children }) {
-  function handleItemTitle(event) {
+function ItemEditDetails({ list, setList, itemID }) {
+  const currentItem = list.find((item) => item.id === itemID);
+
+  if (!currentItem) {
+    return <p>Error item not found!</p>;
+  }
+
+  function updateItemField(field, value) {
     const updatedList = list.map((item) =>
-      item.id === children ? { ...item, itemTitle: event.target.value } : item
+      item.id === itemID ? { ...item, [field]: value } : item
     );
-
     setList(updatedList);
-  }
-
-  function handleItemDescription(event) {
-    const updatedList = list.map((item) =>
-      item.id === children ? { ...item, description: event.target.value } : item
-    );
-
-    setList(updatedList);
-  }
-
-  function handleItemStartDate(event) {
-    const updatedList = list.map((item) =>
-      item.id === children ? { ...item, startDate: event.target.value } : item
-    );
-
-    setList(updatedList);
-  }
-
-  function handleItemEndDate(event) {
-    const updatedList = list.map((item) =>
-      item.id === children ? { ...item, endDate: event.target.value } : item
-    );
-
-    setList(updatedList);
-  }
-
-  function findItem(id) {
-    return list.find((item) => item.id === id);
-  }
-
-  function formatDate(date) {
-    const year = date.getFullYear();
-    const month = String(date.getMonth() + 1).padStart(2, "0"); // Months are zero-indexed
-    const day = String(date.getDate()).padStart(2, "0");
-    return `${year}-${month}-${day}`;
   }
 
   return (
@@ -48,8 +18,8 @@ function ItemEditDetails({ list, setList, children }) {
       <input
         type="text"
         id="itemTitle"
-        value={findItem(children).itemTitle}
-        onChange={handleItemTitle}
+        value={currentItem.itemTitle}
+        onChange={(event) => updateItemField("itemTitle", event.target.value)}
       />
       <label htmlFor="itemDescription">
         (Explain why you don't want to do this?)
@@ -57,34 +27,23 @@ function ItemEditDetails({ list, setList, children }) {
       <textarea
         type="text"
         id="itemDescription"
-        value={
-          findItem(children).description
-            ? findItem(children).description
-            : "No description yet"
-        }
-        onChange={handleItemDescription}
+        placeholder="Description"
+        value={currentItem.description ? currentItem.description : ""}
+        onChange={(event) => updateItemField("description", event.target.value)}
       ></textarea>
       <div className="itemDate">
         <input
           type="date"
           className="itemStartDate"
-          value={
-            findItem(children).startDate
-              ? findItem(children).startDate
-              : formatDate(new Date())
-          }
-          onChange={handleItemStartDate}
+          value={currentItem.startDate || ""}
+          onChange={(event) => updateItemField("startDate", event.target.value)}
         />
 
         <input
           type="date"
           className="itemEndDate"
-          value={
-            findItem(children).endDate
-              ? findItem(children).endDate
-              : formatDate(new Date())
-          }
-          onChange={handleItemEndDate}
+          value={currentItem.endDate || ""}
+          onChange={(event) => updateItemField("endDate", event.target.value)}
         />
       </div>
     </form>
