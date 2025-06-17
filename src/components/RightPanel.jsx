@@ -1,14 +1,26 @@
-import { useState } from "react";
-
 import ItemShowDetails from "./ItemShowDetails";
+import ItemEditDetails from "./ItemEditDetails";
 
-function RightPanel() {
-  const [isEditing, setIsEditing] = useState(false);
-
-  if (isEditing) {
-    return <h1>Editing...</h1>;
+function RightPanel({ isEditingItemDetails, list, setList, children }) {
+  if (isEditingItemDetails) {
+    if (list.length <= 0) {
+      return <h1>No items yet</h1>;
+    } else {
+      return (
+        <div className="rightPanel">
+          <ItemEditDetails list={list} setList={setList}>
+            {children}
+          </ItemEditDetails>
+          ;
+        </div>
+      );
+    }
   } else {
-    return <ItemShowDetails></ItemShowDetails>;
+    return (
+      <div className="rightPanel">
+        <ItemShowDetails></ItemShowDetails>
+      </div>
+    );
   }
 }
 
